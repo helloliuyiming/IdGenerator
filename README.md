@@ -14,7 +14,15 @@
 
 ### UUID
 
-## 参考文章
+## 参考
+
+### 项目
+
++ [callicoder/java-snowflake](https://github.com/callicoder/java-snowflake)
+
+### 文章
 
 + [速看!今天我才知道,UUID还分五个版本 - 掘金](https://juejin.cn/post/6864199183957262350)
 + [全网最全！彻底弄透Java处理GMT/UTC日期时间 - 腾讯云](https://cloud.tencent.com/developer/article/1777707)
++ [基于权重的随机选择算法 - 知乎专栏](https://zhuanlan.zhihu.com/p/146216606)
++ [Generating unique IDs in a distributed environment at high scale.](https://www.callicoder.com/distributed-unique-id-sequence-number-generator)
