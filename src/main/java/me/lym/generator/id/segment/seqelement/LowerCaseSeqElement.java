@@ -14,7 +14,7 @@ public class LowerCaseSeqElement extends AbstractSeqElement {
         char[] chars = getRealValue().toCharArray();
         StringBuilder stringBuilder = new StringBuilder(chars.length + 1);
         boolean increaseDone = false;
-        for (int i = chars.length - 1; i > 0; i--) {
+        for (int i = chars.length - 1; i >= 0; i--) {
             char c = chars[i];
             int ascii = (int) c;
             if ((ascii < 97 || ascii > 122)) {

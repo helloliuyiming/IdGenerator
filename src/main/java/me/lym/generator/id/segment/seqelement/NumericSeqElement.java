@@ -14,7 +14,7 @@ public class NumericSeqElement extends AbstractSeqElement {
         char[] chars = getRealValue().toCharArray();
         StringBuilder stringBuilder = new StringBuilder(chars.length + 1);
         boolean increaseDone = false;
-        for (int i = chars.length - 1; i > 0; i--) {
+        for (int i = chars.length - 1; i >= 0; i--) {
             char c = chars[i];
             int ascii = (int) c;
             if ((ascii < 48 || ascii > 57)) {
@@ -24,7 +24,7 @@ public class NumericSeqElement extends AbstractSeqElement {
                 stringBuilder.insert(0,c);
                 continue;
             }
-            if (ascii > 48 && ascii < 57) {
+            if (ascii >= 48 && ascii < 57) {
                 ascii++;
                 c = (char) ascii;
                 stringBuilder.insert(0,c);

@@ -10,7 +10,6 @@ public class InMemoryStore implements Store{
 
     @Override
     public void setValue(String value) {
-        System.out.println("setValue");
         this.value = value;
     }
 
