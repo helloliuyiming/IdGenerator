@@ -24,10 +24,14 @@ public abstract class AbstractSeqElement implements SeqElement {
 
     @Override
     public String getValue() {
-        if (value.length() < getMinLength()) {
-
+        StringBuilder stringBuilder = new StringBuilder(this.value);
+        if (stringBuilder.length() < getMinLength()) {
+            int space = getMinLength() - stringBuilder.length();
+            for (int i = 0; i < space; i++) {
+                stringBuilder.insert(0,getPlaceholder());
+            }
         }
-        return this.value;
+        return stringBuilder.toString();
     }
 
     @Override
@@ -65,7 +69,7 @@ public abstract class AbstractSeqElement implements SeqElement {
         this.placeholder = placeholder;
     }
 
-    private String getRealValue(){
+    public String getRealValue(){
         return this.value;
     }
 
@@ -77,4 +81,5 @@ public abstract class AbstractSeqElement implements SeqElement {
     public void setKey(String key) {
         this.key = key;
     }
+
 }
