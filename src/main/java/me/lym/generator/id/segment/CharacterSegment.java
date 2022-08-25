@@ -1,6 +1,6 @@
 package me.lym.generator.id.segment;
 
-public class CharacterSegment implements Segment{
+public class CharacterSegment extends AbstractSegment{
 
     public String character = "";
 

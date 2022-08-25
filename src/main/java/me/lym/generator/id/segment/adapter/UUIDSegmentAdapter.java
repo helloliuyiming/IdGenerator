@@ -1,9 +1,9 @@
 package me.lym.generator.id.segment.adapter;
 
-import me.lym.generator.id.segment.Segment;
+import me.lym.generator.id.segment.AbstractSegment;
 import me.lym.generator.id.uuid.UUIDIdGenerator;
 
-public class UUIDSegmentAdapter implements Segment {
+public class UUIDSegmentAdapter extends AbstractSegment {
 
     public UUIDIdGenerator uuidIdGenerator;
 

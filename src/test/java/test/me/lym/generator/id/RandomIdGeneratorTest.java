@@ -12,7 +12,7 @@ public class RandomIdGeneratorTest {
 
     @Test
     public void test(){
-        RandomIdGenerator randomIdGenerator = IdGeneratorBuilder.buildRandomIdGenerator()
+        RandomIdGenerator randomIdGenerator = IdGeneratorBuilder.enterBuildRandomIdGenerator()
                 .addCharacterElement(new NumericElement(10))
                 .addCharacterElement(new LowerCaseElement(26))
                 .addCharacterElement(new UpperCaseElement(26))

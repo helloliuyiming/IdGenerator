@@ -8,23 +8,23 @@ import me.lym.generator.id.uuid.UUIDIdGeneratorBuilder;
 
 public class IdGeneratorBuilder {
 
-    public static UUIDIdGenerator defaultBuildUUIDIdGenerator(){
+    public static UUIDIdGenerator buildDefaultUUIDIdGenerator(){
         return new UUIDIdGeneratorBuilder().build();
     }
 
-    public static UUIDIdGeneratorBuilder buildUUIDIdGenerator(){
+    public static UUIDIdGeneratorBuilder enterBuildUUIDIdGenerator(){
         return new UUIDIdGeneratorBuilder();
     }
 
-    public static SnowflakeIdGeneratorBuilder buildSnowflakeIdGenerator(){
+    public static SnowflakeIdGeneratorBuilder enterBuildSnowflakeIdGenerator(){
         return new SnowflakeIdGeneratorBuilder();
     }
 
-    public static SegmentIdGeneratorBuilder buildSegmentIdGenerator(){
+    public static SegmentIdGeneratorBuilder enterBuildSegmentIdGenerator(){
         return new SegmentIdGeneratorBuilder();
     }
 
-    public static RandomIdGeneratorBuilder buildRandomIdGenerator(){
+    public static RandomIdGeneratorBuilder enterBuildRandomIdGenerator(){
         return new RandomIdGeneratorBuilder();
     }
 }

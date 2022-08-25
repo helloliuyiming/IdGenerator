@@ -3,7 +3,7 @@ package me.lym.generator.id.segment;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-public class DayOfMonthSegment implements Segment{
+public class DayOfMonthSegment extends AbstractSegment{
 
     private int offset = 0; // 偏移
     private TimeZone timezone; //时区

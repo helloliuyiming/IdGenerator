@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SequenceSegment implements Segment{
+public class SequenceSegment extends AbstractSegment{
 
     private Store store;
     private List<SeqElement> seqElements;

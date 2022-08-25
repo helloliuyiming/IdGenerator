@@ -8,7 +8,7 @@ public class UUIDIdGeneratorTest {
 
     @Test
     public void test(){
-        UUIDIdGenerator uuidIdGenerator = IdGeneratorBuilder.buildUUIDIdGenerator()
+        UUIDIdGenerator uuidIdGenerator = IdGeneratorBuilder.enterBuildUUIDIdGenerator()
                 .build();
 
         for (int i = 0; i < 100; i++) {

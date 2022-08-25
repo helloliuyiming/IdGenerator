@@ -1,10 +1,9 @@
 package me.lym.generator.id.segment;
 
-import java.sql.Time;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-public class YearSegment implements Segment{
+public class YearSegment extends AbstractSegment{
 
     private int offset = 0; // 偏移
     private int length = 4; //长度 1-4
