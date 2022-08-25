@@ -6,7 +6,7 @@ public class LowerCaseSeqElement extends AbstractSeqElement {
 
     public LowerCaseSeqElement(String key) {
         super(key);
-        setOriginValue("a");
+        setOriginValue("");
     }
 
     @Override

@@ -2,10 +2,10 @@ package me.lym.generator.id.segment;
 
 import java.util.List;
 
-public class SegmentIdGeneratorContext {
+public class SequenceSegmentContext {
     private List<Segment> segments;
 
-    public SegmentIdGeneratorContext(List<Segment> segments) {
+    public SequenceSegmentContext(List<Segment> segments) {
         this.segments = segments;
     }
 

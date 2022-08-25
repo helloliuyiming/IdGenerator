@@ -20,7 +20,7 @@ public class SequenceSegment extends AbstractSegment{
     public Map<String,String> getOriginValue(){
         Map<String,String> map = new HashMap<>();
         map.put("k1", "1");
-        map.put("k2", "a");
+        map.put("k2", "");
         return map;
     }
 
@@ -67,7 +67,11 @@ public class SequenceSegment extends AbstractSegment{
     private void restore(Map<String,String> valueMap){
         for (int i = 0; i < seqElements.size(); i++) {
             AbstractSeqElement seqElement = (AbstractSeqElement) seqElements.get(i);
-            seqElement.setValue(valueMap.get(seqElement.getKey()));
+            String storedValue = valueMap.get(seqElement.getKey());
+            if (storedValue == null) {
+                storedValue = seqElement.getOriginValue();
+            }
+            seqElement.setValue(storedValue);
         }
     }
 
