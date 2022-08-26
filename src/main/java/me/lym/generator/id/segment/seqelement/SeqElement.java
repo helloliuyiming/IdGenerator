@@ -1,6 +1,7 @@
-package me.lym.generator.id.segment;
+package me.lym.generator.id.segment.seqelement;
 
-import me.lym.generator.id.segment.store.Store;
+import me.lym.generator.id.segment.OnValueChangeListener;
+import me.lym.generator.id.segment.SequenceSegmentContext;
 
 public interface SeqElement {
 
@@ -9,10 +10,8 @@ public interface SeqElement {
     char getPlaceholder();
     String increase();
     String getValue();
-    String getOriginValue();
+    void setValue(String value);
     void reset();
-    String getKey();
-    Store getStore();
 
     void init(SequenceSegmentContext context);
     SequenceSegmentContext getContext();

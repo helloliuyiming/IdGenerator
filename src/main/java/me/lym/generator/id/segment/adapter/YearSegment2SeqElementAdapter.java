@@ -6,12 +6,12 @@ import me.lym.generator.id.segment.YearSegment;
 public class YearSegment2SeqElementAdapter extends AbstractSeqElement {
     YearSegment yearSegment;
     public YearSegment2SeqElementAdapter(String key) {
-        super(key);
+
         yearSegment = new YearSegment();
     }
 
     public YearSegment2SeqElementAdapter(String key, YearSegment yearSegment) {
-        super(key);
+
         this.yearSegment = yearSegment;
     }
 
@@ -23,5 +23,10 @@ public class YearSegment2SeqElementAdapter extends AbstractSeqElement {
     @Override
     public String getValue() {
         return yearSegment.generate();
+    }
+
+    @Override
+    public void reset() {
+        setValue("");
     }
 }

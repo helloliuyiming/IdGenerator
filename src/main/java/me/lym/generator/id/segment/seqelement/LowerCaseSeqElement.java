@@ -2,11 +2,15 @@ package me.lym.generator.id.segment.seqelement;
 
 import me.lym.generator.id.segment.AbstractSeqElement;
 
-public class LowerCaseSeqElement extends AbstractSeqElement {
+public class LowerCaseSeqElement extends AbstractSeqElement implements SeqElementStorable{
 
-    public LowerCaseSeqElement(String key) {
-        super(key);
-        setOriginValue("");
+    private String key;
+
+    public LowerCaseSeqElement(String key,int minLength,int maxLength,char placeholder) {
+        this.key = key;
+        setMinLength(minLength);
+        setMaxLength(maxLength);
+        setPlaceholder(placeholder);
     }
 
     @Override
@@ -44,4 +48,13 @@ public class LowerCaseSeqElement extends AbstractSeqElement {
         return getValue();
     }
 
+    @Override
+    public void reset() {
+        setValue("");
+    }
+
+    @Override
+    public String getKey() {
+        return key;
+    }
 }

@@ -1,6 +1,6 @@
 package me.lym.generator.id.segment;
 
-import me.lym.generator.id.segment.store.InMemoryStore;
+import me.lym.generator.id.segment.seqelement.SeqElement;
 import me.lym.generator.id.segment.store.Store;
 
 import java.util.ArrayList;
@@ -12,23 +12,16 @@ public abstract class AbstractSeqElement implements SeqElement {
     private int minLength;
     private int maxLength;
     private String value;
-    private String originValue = "";
     private char placeholder;
-    private String key;
-    private Store store;
     private List<OnValueChangeListener> onValueChangeListeners;
     private SequenceSegmentContext sequenceSegmentContext;
-    public AbstractSeqElement(String key) {
-        this.key = key;
+    public AbstractSeqElement() {
         onValueChangeListeners = new ArrayList<>();
     }
 
     @Override
     public void init(SequenceSegmentContext context) {
         this.sequenceSegmentContext = context;
-        if (store == null) {
-            store = new InMemoryStore();
-        }
     }
 
     @Override
@@ -47,17 +40,6 @@ public abstract class AbstractSeqElement implements SeqElement {
     }
 
     @Override
-    public Store getStore() {
-        return this.store;
-    }
-
-    public void setStore(Store store) {
-        if (store == null) {
-            throw new IllegalArgumentException("store can't be null");
-        }
-        this.store = store;
-    }
-    @Override
     public String getValue() {
         StringBuilder stringBuilder = new StringBuilder(getRealValue());
         if (stringBuilder.length() < getMinLength()) {
@@ -69,16 +51,6 @@ public abstract class AbstractSeqElement implements SeqElement {
         return stringBuilder.toString();
     }
 
-    @Override
-    public String getOriginValue() {
-        return this.originValue;
-    }
-
-    @Override
-    public void reset() {
-        this.value = originValue;
-    }
-
     public void setMinLength(int minLength) {
         this.minLength = minLength;
     }
@@ -87,16 +59,20 @@ public abstract class AbstractSeqElement implements SeqElement {
         this.maxLength = maxLength;
     }
 
+    @Override
     public void setValue(String value) {
         if (value == null) {
             throw new IllegalArgumentException("value can't be null");
         }
+        int index = 0;
+        char[] chars = value.toCharArray();
+        for (int i = 0; i < chars.length; i++) {
+            if (chars[i] == getPlaceholder()) {
+                index++;
+            }
+        }
+        this.value = value.substring(index);
         publishNewValue(this.value,value);
-        this.value = value;
-    }
-
-    public void setOriginValue(String originValue) {
-        this.originValue = originValue;
     }
 
     @Override
@@ -109,19 +85,7 @@ public abstract class AbstractSeqElement implements SeqElement {
     }
 
     public String getRealValue(){
-        if (this.value == null) {
-            this.value = originValue;
-        }
         return this.value;
-    }
-
-    @Override
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
     }
 
     @Override

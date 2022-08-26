@@ -1,6 +1,5 @@
 package test.me.lym.generator.id;
 
-import me.lym.generator.id.IdGeneratorBuilder;
 import me.lym.generator.id.segment.*;
 import me.lym.generator.id.segment.adapter.YearSegment2SeqElementAdapter;
 import me.lym.generator.id.segment.seqelement.LowerCaseSeqElement;
@@ -11,18 +10,16 @@ public class SegmentIdGeneratorTest {
 
     @Test
     public void test(){
-        NumericSeqElement numericSeqElement = new NumericSeqElement("k1");
-        numericSeqElement.setOriginValue("0");
-        numericSeqElement.setMinLength(4);
-        numericSeqElement.setMaxLength(4);
-        numericSeqElement.setPlaceholder('0');
-        LowerCaseSeqElement lowerCaseSeqElement = new LowerCaseSeqElement("k2");
-        lowerCaseSeqElement.setMinLength(4);
-        lowerCaseSeqElement.setMaxLength(4);
-        lowerCaseSeqElement.setPlaceholder('*');
+        NumericSeqElement numericSeqElement = new NumericSeqElement("k1",4,4,'0');
+        LowerCaseSeqElement lowerCaseSeqElement = new LowerCaseSeqElement("k2",4,4,'*');
+
         SequenceSegment sequenceSegment = new SequenceSegmentBuilder()
                 .addSeqElement(numericSeqElement)
                 .addSeqElement(lowerCaseSeqElement)
+                .enterConfigOriginValue()
+                .addValue("k1","1")
+                .addValue("k2","")
+                .completed()
                 .build();
         SegmentIdGenerator segmentIdGenerator = new SegmentIdGeneratorBuilder()
                 .addSegment(sequenceSegment)
@@ -34,17 +31,8 @@ public class SegmentIdGeneratorTest {
 
     @Test
     public void testSequenceSegment(){
-        NumericSeqElement numericSeqElement = new NumericSeqElement("k1");
-        numericSeqElement.setOriginValue("0");
-        numericSeqElement.setMinLength(3);
-        numericSeqElement.setMaxLength(3);
-        numericSeqElement.setPlaceholder('0');
-        DayOfMonthSegment dayOfMonthSegment = new DayOfMonthSegment();
-
-        LowerCaseSeqElement lowerCaseSeqElement = new LowerCaseSeqElement("k2");
-        lowerCaseSeqElement.setMinLength(4);
-        lowerCaseSeqElement.setMaxLength(4);
-        lowerCaseSeqElement.setPlaceholder('*');
+        NumericSeqElement numericSeqElement = new NumericSeqElement("k1",4,4,' ');
+        LowerCaseSeqElement lowerCaseSeqElement = new LowerCaseSeqElement("k2",4,4,'*');
 
         YearSegment2SeqElementAdapter yearSegment2SeqElementAdapter = new YearSegment2SeqElementAdapter("yearSegment2SeqElementAdapter");
         yearSegment2SeqElementAdapter.registerListener((oldValue, newValue) -> numericSeqElement.reset());
@@ -55,5 +43,12 @@ public class SegmentIdGeneratorTest {
         for (int i = 0; i < 100; i++) {
             System.out.println(sequenceSegment.generate());
         }
+    }
+
+    @Test
+    public void testJava(){
+        NumericSeqElement numericSeqElement = new NumericSeqElement("k1",4,4,' ');
+        LowerCaseSeqElement lowerCaseSeqElement = new LowerCaseSeqElement("k2",4,4,'*');
+
     }
 }

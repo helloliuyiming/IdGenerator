@@ -2,11 +2,14 @@ package me.lym.generator.id.segment.seqelement;
 
 import me.lym.generator.id.segment.AbstractSeqElement;
 
-public class NumericSeqElement extends AbstractSeqElement {
+public class NumericSeqElement extends AbstractSeqElement implements SeqElementStorable{
 
-    public NumericSeqElement(String key) {
-        super(key);
-        setOriginValue("0");
+    private String key;
+    public NumericSeqElement(String key,int minLength,int maxLength,char placeholder) {
+        this.key = key;
+        setMinLength(minLength);
+        setMaxLength(maxLength);
+        setPlaceholder(placeholder);
     }
 
     @Override
@@ -44,4 +47,13 @@ public class NumericSeqElement extends AbstractSeqElement {
         return getValue();
     }
 
+    @Override
+    public void reset() {
+        setValue("");
+    }
+
+    @Override
+    public String getKey() {
+        return this.key;
+    }
 }

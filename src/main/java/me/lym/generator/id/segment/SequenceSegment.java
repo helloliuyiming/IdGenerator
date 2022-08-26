@@ -1,6 +1,8 @@
 package me.lym.generator.id.segment;
 
 import com.google.gson.Gson;
+import me.lym.generator.id.segment.seqelement.SeqElement;
+import me.lym.generator.id.segment.seqelement.SeqElementStorable;
 import me.lym.generator.id.segment.store.Store;
 
 import java.util.HashMap;
@@ -11,17 +13,11 @@ public class SequenceSegment extends AbstractSegment{
 
     private Store store;
     private List<SeqElement> seqElements;
-
-    public SequenceSegment(Store store,List<SeqElement> seqElements) {
+    private Map<String,String> originValueMap;
+    public SequenceSegment(Store store,List<SeqElement> seqElements,Map<String,String> originValueMap) {
         this.store = store;
         this.seqElements = seqElements;
-    }
-
-    public Map<String,String> getOriginValue(){
-        Map<String,String> map = new HashMap<>();
-        map.put("k1", "1");
-        map.put("k2", "");
-        return map;
+        this.originValueMap = originValueMap;
     }
 
     @Override
@@ -31,7 +27,7 @@ public class SequenceSegment extends AbstractSegment{
         if (oldValue != null) {
             oldValueMap = deserialize(oldValue);
         }else {
-            oldValueMap = getOriginValue();
+            oldValueMap = this.originValueMap;
         }
         restore(oldValueMap);
         StringBuilder stringBuilder = new StringBuilder();
@@ -58,20 +54,28 @@ public class SequenceSegment extends AbstractSegment{
     private void store(){
         Map<String,String> map = new HashMap<>();
         for (int i = 0; i < seqElements.size(); i++) {
-            AbstractSeqElement seqElement = (AbstractSeqElement) seqElements.get(i);
-            map.put(seqElement.getKey(), seqElement.getRealValue());
+            SeqElement seqElement = seqElements.get(i);
+
+            if (seqElement instanceof SeqElementStorable) {
+                SeqElementStorable seqElementStorable = (SeqElementStorable) seqElement;
+                String value;
+                if (seqElement instanceof AbstractSeqElement) {
+                    value = ((AbstractSeqElement) seqElement).getRealValue();
+                }else {
+                    value = seqElement.getValue();
+                }
+                map.put(seqElementStorable.getKey(), value);
+            }
         }
         store.setValue(serialize(map));
     }
 
     private void restore(Map<String,String> valueMap){
-        for (int i = 0; i < seqElements.size(); i++) {
-            AbstractSeqElement seqElement = (AbstractSeqElement) seqElements.get(i);
-            String storedValue = valueMap.get(seqElement.getKey());
-            if (storedValue == null) {
-                storedValue = seqElement.getOriginValue();
+        for (SeqElement seqElement : seqElements) {
+            if (seqElement instanceof SeqElementStorable) {
+                String storedValue = valueMap.get(((SeqElementStorable) seqElement).getKey());
+                seqElement.setValue(storedValue);
             }
-            seqElement.setValue(storedValue);
         }
     }
 
