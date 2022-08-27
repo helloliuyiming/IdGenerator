@@ -2,6 +2,7 @@ package test.me.lym.generator.id;
 
 import me.lym.generator.id.segment.*;
 import me.lym.generator.id.segment.adapter.YearSegment2SeqElementAdapter;
+import me.lym.generator.id.segment.segment.SequenceSegment;
 import me.lym.generator.id.segment.seqelement.LowerCaseSeqElement;
 import me.lym.generator.id.segment.seqelement.NumericSeqElement;
 import org.junit.jupiter.api.Test;
@@ -19,12 +20,12 @@ public class SegmentIdGeneratorTest {
                 .enterConfigOriginValue()
                 .addValue("k1","1")
                 .addValue("k2","")
-                .completed()
+                .originValueConfigCompleted()
                 .build();
         SegmentIdGenerator segmentIdGenerator = new SegmentIdGeneratorBuilder()
                 .addSegment(sequenceSegment)
                 .build();
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10000; i++) {
             System.out.println(segmentIdGenerator.next());
         }
     }

@@ -1,19 +1,18 @@
 package me.lym.generator.id.random;
 
-import me.lym.generator.id.random.element.CharacterElement;
+import me.lym.generator.id.random.element.RandomSeedElement;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class RandomIdConfig {
 
-    private Integer maxLength = 12;
-    private Integer minLength = 12;
-    private List<CharacterElement> characterElements;
+    private Integer maxLength = 1;
+    private Integer minLength = 1;
+    private List<RandomSeedElement> randomSeedElements;
 
     public RandomIdConfig(){
-        characterElements = new ArrayList<>();
+        randomSeedElements = new ArrayList<>();
     }
 
     public Integer getMaxLength() {
@@ -32,41 +31,41 @@ public class RandomIdConfig {
         this.minLength = minLength;
     }
 
-    public List<CharacterElement> getCharacterElements(){
-        return this.characterElements;
+    public List<RandomSeedElement> getCharacterElements(){
+        return this.randomSeedElements;
     }
 
-    public RandomIdConfig addCharacterElement(CharacterElement characterElement) {
-        this.characterElements.add(characterElement);
+    public RandomIdConfig addCharacterElement(RandomSeedElement randomSeedElement) {
+        this.randomSeedElements.add(randomSeedElement);
         return this;
     }
 
-    public RandomIdConfig addAllCharacterElement(List<CharacterElement> characterElements) {
-        this.characterElements.addAll(characterElements);
+    public RandomIdConfig addAllCharacterElement(List<RandomSeedElement> randomSeedElements) {
+        this.randomSeedElements.addAll(randomSeedElements);
         return this;
     }
 
-    public RandomIdConfig insertCharacterElement(int index,CharacterElement characterElement) {
-        this.characterElements.add(index, characterElement);
+    public RandomIdConfig insertCharacterElement(int index, RandomSeedElement randomSeedElement) {
+        this.randomSeedElements.add(index, randomSeedElement);
         return this;
     }
 
-    public RandomIdConfig replaceCharacterElement(CharacterElement oldCharacterElement, CharacterElement newCharacterElement) {
-        int index = this.characterElements.indexOf(oldCharacterElement);
+    public RandomIdConfig replaceCharacterElement(RandomSeedElement oldRandomSeedElement, RandomSeedElement newRandomSeedElement) {
+        int index = this.randomSeedElements.indexOf(oldRandomSeedElement);
         if (index != -1) {
-            this.characterElements.remove(index);
-            this.characterElements.add(index,newCharacterElement);
+            this.randomSeedElements.remove(index);
+            this.randomSeedElements.add(index, newRandomSeedElement);
         }
         return this;
     }
 
-    public RandomIdConfig removeCharacterElement(CharacterElement characterElement) {
-        this.characterElements.remove(characterElement);
+    public RandomIdConfig removeCharacterElement(RandomSeedElement randomSeedElement) {
+        this.randomSeedElements.remove(randomSeedElement);
         return this;
     }
 
     public RandomIdConfig removeAllCharacterElement() {
-        this.characterElements.clear();
+        this.randomSeedElements.clear();
         return this;
     }
 }

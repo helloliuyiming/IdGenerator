@@ -8,6 +8,11 @@ public class SnowflakeIdGeneratorBuilder {
         snowflakeIdConfig = new SnowflakeIdConfig();
     }
 
+    public SnowflakeIdGeneratorBuilder setNodeId(long nodeId) {
+        this.snowflakeIdConfig.setNodeId(nodeId);
+        return this;
+    }
+
     public SnowflakeIdGenerator build(){
         return new SnowflakeIdGenerator(snowflakeIdConfig);
     }

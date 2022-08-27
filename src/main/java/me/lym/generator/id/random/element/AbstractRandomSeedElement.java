@@ -1,9 +1,9 @@
 package me.lym.generator.id.random.element;
 
-public abstract class AbstractCharacterElement implements CharacterElement{
+public abstract class AbstractRandomSeedElement implements RandomSeedElement {
 
     private Integer weight;
-    public AbstractCharacterElement(Integer weight) {
+    public AbstractRandomSeedElement(Integer weight) {
         this.weight = weight;
     }
 

@@ -1,7 +1,7 @@
 package me.lym.generator.id.random;
 
 import me.lym.generator.id.IdGenerator;
-import me.lym.generator.id.random.element.CharacterElement;
+import me.lym.generator.id.random.element.RandomSeedElement;
 
 import java.util.List;
 import java.util.Random;
@@ -16,7 +16,7 @@ public class RandomIdGenerator implements IdGenerator {
 
     @Override
     public String next() {
-        List<CharacterElement> characterElements = randomIdConfig.getCharacterElements();
+        List<RandomSeedElement> randomSeedElements = randomIdConfig.getCharacterElements();
         Random random = new Random();
         int length = 0;
         if (randomIdConfig.getMinLength().equals(randomIdConfig.getMaxLength())) {
@@ -26,18 +26,18 @@ public class RandomIdGenerator implements IdGenerator {
         }
         int totalWeight = 0;
         StringBuilder stringBuilder = new StringBuilder();
-        for (int i = 0; i < characterElements.size(); i++) {
-            totalWeight += characterElements.get(i).getWeight();
+        for (int i = 0; i < randomSeedElements.size(); i++) {
+            totalWeight += randomSeedElements.get(i).getWeight();
         }
         for (int i = 0; i < length; i++) {
             int nextElementIndicator = random.nextInt(totalWeight);
-            for (int j = 0; j < characterElements.size(); j++) {
-                CharacterElement characterElement = characterElements.get(j);
-                if (characterElement.getWeight() > nextElementIndicator) {
-                    stringBuilder.append(characterElement.generate());
+            for (int j = 0; j < randomSeedElements.size(); j++) {
+                RandomSeedElement randomSeedElement = randomSeedElements.get(j);
+                if (randomSeedElement.getWeight() > nextElementIndicator) {
+                    stringBuilder.append(randomSeedElement.generate());
                     break;
                 }
-                nextElementIndicator-=characterElement.getWeight();
+                nextElementIndicator-= randomSeedElement.getWeight();
             }
         }
         return stringBuilder.toString();

@@ -15,7 +15,7 @@ public class SegmentIdGeneratorBuilder {
         return this;
     }
 
-    public SegmentIdGeneratorBuilder addAllSegment(List<Segment> segments){
+    public SegmentIdGeneratorBuilder addSegments(List<Segment> segments){
         segmentConfig.addAllSegment(segments);
         return this;
     }
@@ -27,6 +27,11 @@ public class SegmentIdGeneratorBuilder {
 
     public SegmentIdGeneratorBuilder replaceSegment(Integer index, Segment newSegment){
         segmentConfig.replaceSegment(index, newSegment);
+        return this;
+    }
+
+    public SegmentIdGeneratorBuilder setSeparator(String separator) {
+        segmentConfig.setSeparator(separator);
         return this;
     }
 

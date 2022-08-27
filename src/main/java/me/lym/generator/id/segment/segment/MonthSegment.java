@@ -1,26 +1,28 @@
-package me.lym.generator.id.segment;
+package me.lym.generator.id.segment.segment;
+
+import me.lym.generator.id.segment.AbstractSegment;
 
 import java.util.Calendar;
 import java.util.TimeZone;
 
-public class DayOfMonthSegment extends AbstractSegment{
+public class MonthSegment extends AbstractSegment {
 
     private int offset = 0; // 偏移
     private TimeZone timezone; //时区
 
-    public DayOfMonthSegment(){
+    public MonthSegment(){
         this(null,null);
     }
 
-    public DayOfMonthSegment(TimeZone timezone) {
+    public MonthSegment(TimeZone timezone) {
         this(timezone, null);
     }
 
-    public DayOfMonthSegment(Integer offset) {
+    public MonthSegment(Integer offset) {
         this(null, offset);
     }
 
-    public DayOfMonthSegment(TimeZone timezone, Integer offset) {
+    public MonthSegment(TimeZone timezone, Integer offset) {
         if (timezone != null) {
             this.timezone = timezone;
         }else {
@@ -51,13 +53,13 @@ public class DayOfMonthSegment extends AbstractSegment{
     @Override
     public String generate() {
         Calendar calendar = Calendar.getInstance(timezone);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
-        day = day + offset;
-        String dayStr = String.valueOf(day);
-        if (dayStr.length() == 1) {
-            dayStr = "0" + dayStr;
+        int month = calendar.get(Calendar.MONTH);
+        month = month + offset;
+        String monthStr = String.valueOf(month);
+        if (monthStr.length() == 1) {
+            monthStr = "0" + monthStr;
         }
-        return dayStr;
+        return monthStr;
     }
 
 }

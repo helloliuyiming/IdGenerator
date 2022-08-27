@@ -1,8 +1,8 @@
 package me.lym.generator.id.random.element;
 
-public interface CharacterElement {
+public interface RandomSeedElement {
 
     int getWeight();
-    String generate();
+    char generate();
 
 }

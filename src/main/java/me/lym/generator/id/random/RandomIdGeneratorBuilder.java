@@ -1,6 +1,6 @@
 package me.lym.generator.id.random;
 
-import me.lym.generator.id.random.element.CharacterElement;
+import me.lym.generator.id.random.element.RandomSeedElement;
 
 import java.util.List;
 
@@ -12,28 +12,28 @@ public class RandomIdGeneratorBuilder {
         randomIdConfig = new RandomIdConfig();
     }
 
-    public RandomIdGeneratorBuilder addCharacterElement(CharacterElement characterElement) {
-        randomIdConfig.addCharacterElement(characterElement);
+    public RandomIdGeneratorBuilder addCharacterElement(RandomSeedElement randomSeedElement) {
+        randomIdConfig.addCharacterElement(randomSeedElement);
         return this;
     }
 
-    public RandomIdGeneratorBuilder addAllCharacterElement(List<CharacterElement> characterElements) {
-        randomIdConfig.addAllCharacterElement(characterElements);
+    public RandomIdGeneratorBuilder addCharacterElements(List<RandomSeedElement> randomSeedElements) {
+        randomIdConfig.addAllCharacterElement(randomSeedElements);
         return this;
     }
 
-    public RandomIdGeneratorBuilder insertCharacterElement(int index,CharacterElement characterElement) {
-        randomIdConfig.insertCharacterElement(index, characterElement);
+    public RandomIdGeneratorBuilder insertCharacterElement(int index, RandomSeedElement randomSeedElement) {
+        randomIdConfig.insertCharacterElement(index, randomSeedElement);
         return this;
     }
 
-    public RandomIdGeneratorBuilder replaceCharacterElement(CharacterElement oldCharacterElement, CharacterElement newCharacterElement) {
-        randomIdConfig.replaceCharacterElement(oldCharacterElement, newCharacterElement);
+    public RandomIdGeneratorBuilder replaceCharacterElement(RandomSeedElement oldRandomSeedElement, RandomSeedElement newRandomSeedElement) {
+        randomIdConfig.replaceCharacterElement(oldRandomSeedElement, newRandomSeedElement);
         return this;
     }
 
-    public RandomIdGeneratorBuilder removeCharacterElement(CharacterElement characterElement) {
-        randomIdConfig.removeCharacterElement(characterElement);
+    public RandomIdGeneratorBuilder removeCharacterElement(RandomSeedElement randomSeedElement) {
+        randomIdConfig.removeCharacterElement(randomSeedElement);
         return this;
     }
 
@@ -41,7 +41,26 @@ public class RandomIdGeneratorBuilder {
         randomIdConfig.removeAllCharacterElement();
         return this;
     }
+
+    public RandomIdGeneratorBuilder setMaxLength(int maxLength) {
+        if (maxLength < 1) {
+            throw new IllegalArgumentException("maxLength must be positive");
+        }
+        randomIdConfig.setMaxLength(maxLength);
+        return this;
+    }
+
+    public RandomIdGeneratorBuilder setMinLength(int minLength) {
+        if (minLength < 1) {
+            throw new IllegalArgumentException("minLength must be positive");
+        }
+        randomIdConfig.setMinLength(minLength);
+        return this;
+    }
     public RandomIdGenerator build(){
+        if (randomIdConfig.getMaxLength() < randomIdConfig.getMinLength()) {
+            throw new IllegalArgumentException("maxLength can't be less than minLength and now minLength = " + randomIdConfig.getMinLength() + ", maxLength = " + randomIdConfig.getMaxLength());
+        }
         return new RandomIdGenerator(randomIdConfig);
     }
 }

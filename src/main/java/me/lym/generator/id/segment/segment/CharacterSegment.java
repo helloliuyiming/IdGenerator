@@ -1,6 +1,8 @@
-package me.lym.generator.id.segment;
+package me.lym.generator.id.segment.segment;
 
-public class CharacterSegment extends AbstractSegment{
+import me.lym.generator.id.segment.AbstractSegment;
+
+public class CharacterSegment extends AbstractSegment {
 
     public String character = "";
 

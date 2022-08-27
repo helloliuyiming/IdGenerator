@@ -1,6 +1,6 @@
 package test.me.lym.generator.id;
 
-import me.lym.generator.id.segment.YearSegment;
+import me.lym.generator.id.segment.segment.YearSegment;
 import org.junit.jupiter.api.Test;
 
 import java.util.Calendar;

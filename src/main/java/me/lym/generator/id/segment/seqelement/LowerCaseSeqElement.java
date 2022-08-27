@@ -1,7 +1,5 @@
 package me.lym.generator.id.segment.seqelement;
 
-import me.lym.generator.id.segment.AbstractSeqElement;
-
 public class LowerCaseSeqElement extends AbstractSeqElement implements SeqElementStorable{
 
     private String key;

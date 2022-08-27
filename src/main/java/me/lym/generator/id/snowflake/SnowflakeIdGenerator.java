@@ -5,7 +5,7 @@ import me.lym.generator.id.IdGenerator;
 public class SnowflakeIdGenerator implements IdGenerator {
 
     private SnowflakeIdConfig snowflakeIdConfig;
-    Snowflake snowflake ;
+    private final Snowflake snowflake ;
     public SnowflakeIdGenerator(SnowflakeIdConfig snowflakeIdConfig) {
         this.snowflakeIdConfig = snowflakeIdConfig;
         snowflake = new Snowflake(snowflakeIdConfig.getNodeId());

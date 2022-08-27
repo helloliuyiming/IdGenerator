@@ -1,7 +1,7 @@
 package me.lym.generator.id.segment.adapter;
 
-import me.lym.generator.id.segment.AbstractSeqElement;
-import me.lym.generator.id.segment.YearSegment;
+import me.lym.generator.id.segment.seqelement.AbstractSeqElement;
+import me.lym.generator.id.segment.segment.YearSegment;
 
 public class YearSegment2SeqElementAdapter extends AbstractSeqElement {
     YearSegment yearSegment;

@@ -1,7 +1,5 @@
 package me.lym.generator.id.segment.seqelement;
 
-import me.lym.generator.id.segment.AbstractSeqElement;
-
 public class NumericSeqElement extends AbstractSeqElement implements SeqElementStorable{
 
     private String key;
@@ -27,7 +25,7 @@ public class NumericSeqElement extends AbstractSeqElement implements SeqElementS
                 stringBuilder.insert(0,c);
                 continue;
             }
-            if (ascii >= 48 && ascii < 57) {
+            if (ascii < 57) {
                 ascii++;
                 c = (char) ascii;
                 stringBuilder.insert(0,c);

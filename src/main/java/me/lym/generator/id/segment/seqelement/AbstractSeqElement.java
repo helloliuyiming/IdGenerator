@@ -1,7 +1,7 @@
-package me.lym.generator.id.segment;
+package me.lym.generator.id.segment.seqelement;
 
-import me.lym.generator.id.segment.seqelement.SeqElement;
-import me.lym.generator.id.segment.store.Store;
+import me.lym.generator.id.segment.OnValueChangeListener;
+import me.lym.generator.id.segment.SequenceSegmentContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,10 +66,12 @@ public abstract class AbstractSeqElement implements SeqElement {
         }
         int index = 0;
         char[] chars = value.toCharArray();
-        for (int i = 0; i < chars.length; i++) {
-            if (chars[i] == getPlaceholder()) {
+        for (char aChar : chars) {
+            if (aChar == getPlaceholder()) {
                 index++;
+                continue;
             }
+            break;
         }
         this.value = value.substring(index);
         publishNewValue(this.value,value);

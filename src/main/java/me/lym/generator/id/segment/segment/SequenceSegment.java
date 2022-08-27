@@ -1,6 +1,8 @@
-package me.lym.generator.id.segment;
+package me.lym.generator.id.segment.segment;
 
 import com.google.gson.Gson;
+import me.lym.generator.id.segment.AbstractSegment;
+import me.lym.generator.id.segment.seqelement.AbstractSeqElement;
 import me.lym.generator.id.segment.seqelement.SeqElement;
 import me.lym.generator.id.segment.seqelement.SeqElementStorable;
 import me.lym.generator.id.segment.store.Store;
@@ -9,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SequenceSegment extends AbstractSegment{
+public class SequenceSegment extends AbstractSegment {
 
     private Store store;
     private List<SeqElement> seqElements;
@@ -32,19 +34,18 @@ public class SequenceSegment extends AbstractSegment{
         restore(oldValueMap);
         StringBuilder stringBuilder = new StringBuilder();
         boolean addDone = false;
-        for (int i = 0; i < seqElements.size(); i++) {
-            SeqElement seqElement = seqElements.get(i);
+        for (SeqElement seqElement : seqElements) {
             if (addDone) {
-                stringBuilder.insert(0,seqElement.getValue());
+                stringBuilder.insert(0, seqElement.getValue());
                 continue;
             }
             String string = seqElement.increase();
             if (string == null) {
                 seqElement.reset();
-                stringBuilder.insert(0,seqElement.getValue());
-            }else {
+                stringBuilder.insert(0, seqElement.getValue());
+            } else {
                 addDone = true;
-                stringBuilder.insert(0,string);
+                stringBuilder.insert(0, string);
             }
         }
         store();
@@ -73,7 +74,11 @@ public class SequenceSegment extends AbstractSegment{
     private void restore(Map<String,String> valueMap){
         for (SeqElement seqElement : seqElements) {
             if (seqElement instanceof SeqElementStorable) {
-                String storedValue = valueMap.get(((SeqElementStorable) seqElement).getKey());
+                String key = ((SeqElementStorable) seqElement).getKey();
+                String storedValue = valueMap.get(key);
+                if (storedValue == null) {
+                    throw new IllegalStateException(key + " selElement can't be initialized from store got null value");
+                }
                 seqElement.setValue(storedValue);
             }
         }
