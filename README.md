@@ -2,18 +2,70 @@
 
 > IDGenerator是一个统一的id生成器，整合了UUID、Random、分段、雪花及类雪花id生成算法，旨在以一种统一的操作方式根据业务需求生成不同的id。
 
-## guideline
+## 使用指南
 
-### quick start
+IDGenerator使用建造者设计模式来配置各种IDGenerator的配置信息，如UUIDIdGeneratorBuilder、RandomIdGeneratorBuilder等；使用xxxBuilder会生成相应的xxxGenerator，如UUIDIdGenerator、RandomIdGenerator，这些才是真正生成id的对象。
 
-### Random
+### 随机ID
+
+> 随机ID算法生成的是一种无序、随机不保证绝对唯一的ID
+
+```java 
+    RandomIdGenerator randomIdGenerator = new RandomIdGeneratorBuilder()
+                .addCharacterElement(new NumericRandomSeedElement(10))
+                .addCharacterElement(new LowerCaseRandomSeedElement(26))
+                .addCharacterElement(new FinalCharacterAsteriskRandomSeedElement(1))
+                .addCharacterElement(new FinalCharacterAmpersandRandomSeedElement(1))
+                .setMinLength(10)
+                .setMaxLength(12)
+                .build();
+    randomIdGenerator.next()
+```
 
 ### 分段
 
+> 分段算法由不同的块组成，每个块有不同的生成策略，自由度很高
+
+```java 
+    SequenceSegment sequenceSegment = new SequenceSegmentBuilder()
+                .addSeqElement(new NumericSeqElement("numericSeqElement", 2, 4, '0'))
+                .addSeqElement(new LowerCaseSeqElement("lowerCaseSeqElement", 4, 4, '#'))
+                .enterConfigOriginValue()
+                .addValue("numericSeqElement", "1")
+                .addValue("lowerCaseSeqElement", "")
+                .originValueConfigCompleted()
+                .build();
+
+    SegmentIdGenerator segmentIdGenerator = new SegmentIdGeneratorBuilder()
+            .addSegment(new YearSegment())
+            .addSegment(new MonthSegment())
+            .addSegment(new DayOfMonthSegment())
+            .addSegment(sequenceSegment)
+            .build();
+            
+    segmentIdGenerator.next()
+```
+
 ### Snowflake
+
+> 使用twitter的雪花算法来实现
+
+```java 
+    SnowflakeIdGenerator snowflakeIdGenerator = new SnowflakeIdGeneratorBuilder()
+            .build();
+    snowflakeIdGenerator.next()
+```
 
 ### UUID
 
+> 使用UUID来生成ID
+
+```java 
+    UUIDIdGenerator uuidIdGenerator = new UUIDIdGeneratorBuilder()
+            .setFastModeEnable(true)
+            .build();
+    uuidIdGenerator.next()
+```
 ## 参考
 
 ### 项目
