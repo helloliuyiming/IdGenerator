@@ -11,7 +11,8 @@ public class UuidIdGeneratorSample {
         UUIDIdGenerator uuidIdGenerator = new UUIDIdGeneratorBuilder()
                 .setFastModeEnable(true)
                 .build();
-
+        uuidIdGenerator.next();
+        System.out.println(uuidIdGenerator.next());
         for (int i = 0; i < 1000; i++) {
             System.out.println(uuidIdGenerator.next());
         }

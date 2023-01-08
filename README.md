@@ -1,14 +1,28 @@
 # IDGenerator
 
-> IDGenerator是一个统一的id生成器，整合了UUID、Random、分段、雪花及类雪花id生成算法，旨在以一种统一的操作方式根据业务需求生成不同的id。
+> IDGenerator是一个支持多种ID生成策略，如UUID、Random、snowflake，并以一种统一的使用方式来实现的，可以让你方便、快速的集成到系统中的工具包。
+
+**支持的策略**
++ UUID
++ 随机ID
++ 分段ID
++ 雪花算法
+
+**策略比较**
+
+// TODO
 
 ## 使用指南
 
-IDGenerator使用建造者设计模式来配置各种IDGenerator的配置信息，如UUIDIdGeneratorBuilder、RandomIdGeneratorBuilder等；使用xxxBuilder会生成相应的xxxGenerator，如UUIDIdGenerator、RandomIdGenerator，这些才是真正生成id的对象。
+IDGenerator使用建造者设计模式来使用和配置各种IDGenerator，一般每种id generator会有三种角色类，builder、config和generator。
+builder类是使用id generator的入口类，builder的职责是收集、校验使用generator工作前的配置信息，在命名上一般是`[Type]GeneratorBuilder`，如UUIDIdGeneratorBuilder、RandomIdGeneratorBuilder等。
+config类是generator工作过程要用到的配置信息，由builder类创建并传递给generator类，使用者不需要操作config类，在命名上一般是`[Type]Config`，如UUIDConfig、RandomIdConfig。
+generator是真正用于生成id的核心类，使用generator的`String next()`方法来生成id，generator类的创建由builder完成，在命名上一般是`[Type]IdGenerator`，如RandomIdGenerator。
+除了上面三种角色类之外，可能还会需要一些额外的辅助类来实现id generator，如分段ID有可能会遇到会根据上一个id来计算下一个id的情况，这种时候就需要store类的帮助。
 
 ### 随机ID
 
-> 随机ID算法生成的是一种无序、随机不保证绝对唯一的ID
+> 随机ID生成的是一种无序、随机的策略，随机ID不能保证生成id的绝对唯一，具体出现id重复的概率大小取决于参与id生成的元素数量和id的长度
 
 ```java 
     RandomIdGenerator randomIdGenerator = new RandomIdGeneratorBuilder()
@@ -20,6 +34,17 @@ IDGenerator使用建造者设计模式来配置各种IDGenerator的配置信息�
                 .setMaxLength(12)
                 .build();
     randomIdGenerator.next()
+```
+
+### UUID
+
+> UUID是一种无序、随机且长度固定的id生成策略
+
+```java
+        UUIDIdGenerator uuidIdGenerator = new UUIDIdGeneratorBuilder()
+                .setFastModeEnable(true)
+                .build();
+        uuidIdGenerator.next();
 ```
 
 ### 分段
@@ -56,16 +81,6 @@ IDGenerator使用建造者设计模式来配置各种IDGenerator的配置信息�
     snowflakeIdGenerator.next()
 ```
 
-### UUID
-
-> 使用UUID来生成ID
-
-```java 
-    UUIDIdGenerator uuidIdGenerator = new UUIDIdGeneratorBuilder()
-            .setFastModeEnable(true)
-            .build();
-    uuidIdGenerator.next()
-```
 ## 参考
 
 ### 项目
